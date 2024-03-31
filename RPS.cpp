@@ -8,7 +8,9 @@ const char ROCK = 'r';
 const char PAPER = 'p';
 const char SCISSORS = 's';
  
-using namespace std;
+using std::cin;
+using std::cout;
+using std::endl;
  
 char getComputerOption() {
     srand(time(0));
@@ -30,19 +32,13 @@ char getUserOption() {
     cout << "(r) for rock " << endl << "(p) for paper" << endl << "(s) for scissors " << endl;
     cout << "(q) to quit" << endl;
     cin >> c;
-    
-    while (c!='r' && c!='p' && c!='s' && c!='q')
+
+    while (c !='r' && c !='p' && c !='s')
     {
-        if (c == 'q') {
-            cout << "quitting" << endl;
-            return EXIT_SUCCESS;
-        } else {
-            cout << "Please enter one of the following options only. " << endl;
-            cout << "(r) for rock " << endl << "(p) for paper" << endl << "(s) for scissors " << endl;
-            cin >> c;
-        }
+        cout << "Please enter one of the following options only. " << endl;
+        cout << "(r) for rock " << endl << "(p) for paper" << endl << "(s) for scissors " << endl;
+        cin >> c;
     }
- 
     return c;
 }
  
@@ -79,22 +75,43 @@ void chooseWinner(char uChoice, char cChoice) {
         cout << "Tie. Play again win the Game." << endl;
     }
 }
+
  
 int main() {
     //User's choice
     char uChoice; 
     //Compter's choice
     char cChoice;
-    
+    // y/n 
+    char o;
+
     uChoice = getUserOption();
     cout << "Your choice is: "<< endl;
     showSelectedOption(uChoice);
-    
+
     cout << "Computer's choice is: "<< endl;
     cChoice = getComputerOption();
     showSelectedOption(cChoice);
-    
+
     chooseWinner(uChoice, cChoice);
- 
+
+
+    cout << "do you want to play again? (y/n)" << endl;
+    cin >> o;
+
+    if (o == 'y') {
+        getUserOption();
+        cout << "Your choice is: "<< endl;
+        showSelectedOption(uChoice);
+
+        cout << "Computer's choice is: "<< endl;
+        cChoice = getComputerOption();
+        showSelectedOption(cChoice);
+
+        chooseWinner(uChoice, cChoice);
+    } else if (o == 'n') {
+        cout << "quitting game" << endl;
+        return EXIT_SUCCESS;
+    }
     return 0;
 }
